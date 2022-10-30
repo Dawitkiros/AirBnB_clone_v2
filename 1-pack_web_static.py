@@ -1,45 +1,41 @@
-<<<<<<< HEAD
-#!/usr/bin/python3
-'''Fabric script to generate .tgz archive'''
+#!/usr/bin/python3                                                                                                                         
 
-from fabric.api import local
-from datetime import datetime
+'''Fabric script to generate .tgz archive'''                                                                                               
 
-from fabric.decorators import runs_once
+                                                                                                                                           
 
+from fabric.api import local                                                                                                               
 
-@runs_once
-def do_pack():
-    '''generates .tgz archive from the contents of the web_static folder'''
-    local("mkdir -p versions")
-    path = ("versions/web_static_{}.tgz"
-            .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))
-    result = local("tar -cvzf {} web_static"
-                   .format(path))
+from datetime import datetime                                                                                                              
 
-    if result.failed:
-        return None
+                                                                                                                                           
+
+from fabric.decorators import runs_once                                                                                                    
+
+                                                                                                                                           
+
+                                                                                                                                           
+
+@runs_once                                                                                                                                 
+
+def do_pack():                                                                                                                             
+
+    '''generates .tgz archive from the contents of the web_static folder'''                                                                
+
+    local("mkdir -p versions")                                                                                                             
+
+    path = ("versions/web_static_{}.tgz"                                                                                                   
+
+            .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))                                                                    
+
+    result = local("tar -cvzf {} web_static"                                                                                               
+
+                   .format(path))                                                                                                          
+
+                                                                                                                                           
+
+    if result.failed:                                                                                                                      
+
+        return None                                                                                                                        
+
     return path
-=======
-#!/usr/bin/python3
-'''Fabric script to generate .tgz archive'''
-
-from fabric.api import local
-from datetime import datetime
-
-from fabric.decorators import runs_once
-
-
-@runs_once
-def do_pack():
-    '''generates .tgz archive from the contents of the web_static folder'''
-    local("mkdir -p versions")
-    path = ("versions/web_static_{}.tgz"
-            .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))
-    result = local("tar -cvzf {} web_static"
-                   .format(path))
-
-    if result.failed:
-        return None
-    return path
->>>>>>> 88d383fb3fafc32f93275b21d70b25a76c0d457d
