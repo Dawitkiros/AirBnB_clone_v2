@@ -1,41 +1,32 @@
-#!/usr/bin/python3                                                                                                                         
+#!/usr/bin/python3
 
-'''Fabric script to generate .tgz archive'''                                                                                               
+'''Fabric script to generate .tgz archive'''
 
-                                                                                                                                           
 
-from fabric.api import local                                                                                                               
+from fabric.api import local
 
-from datetime import datetime                                                                                                              
+from datetime import datetime
 
-                                                                                                                                           
 
-from fabric.decorators import runs_once                                                                                                    
+from fabric.decorators import runs_once
 
-                                                                                                                                           
 
-                                                                                                                                           
+@runs_once
+def do_pack():
+    '''generates .tgz archive from the contents of the web_static folder'''
 
-@runs_once                                                                                                                                 
+    local("mkdir -p versions")
 
-def do_pack():                                                                                                                             
+    path = ("versions/web_static_{}.tgz"
 
-    '''generates .tgz archive from the contents of the web_static folder'''                                                                
+            .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))
 
-    local("mkdir -p versions")                                                                                                             
+    result = local("tar -cvzf {} web_static"
 
-    path = ("versions/web_static_{}.tgz"                                                                                                   
+                   .format(path))
 
-            .format(datetime.strftime(datetime.now(), "%Y%m%d%H%M%S")))                                                                    
+    if result.failed:
 
-    result = local("tar -cvzf {} web_static"                                                                                               
-
-                   .format(path))                                                                                                          
-
-                                                                                                                                           
-
-    if result.failed:                                                                                                                      
-
-        return None                                                                                                                        
+        return None
 
     return path
